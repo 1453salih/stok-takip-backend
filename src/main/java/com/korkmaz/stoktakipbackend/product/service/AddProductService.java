@@ -18,9 +18,9 @@ public class AddProductService implements ProductService{
     }
 
     public ProductDto addProduct(ProductDto productDto) {
-        Product product = productMapper.toProduct(productDto);
+        Product product = productMapper.toEntity(productDto);
         Product addProduct = productRepository.save(product);
 
-        return productMapper.toProductDto(addProduct);
+        return productMapper.toDto(addProduct);
     }
 }

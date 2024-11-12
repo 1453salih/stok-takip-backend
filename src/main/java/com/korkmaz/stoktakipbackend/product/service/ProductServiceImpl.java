@@ -19,8 +19,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional
     public ProductDto addProduct(ProductDto productDto) {
-        Product addProduct = productRepository.save(productMapper.toProduct(productDto));
-        return productMapper.toProductDto(addProduct);
+        Product addProduct = productRepository.save(productMapper.toEntity(productDto));
+        return productMapper.toDto(addProduct);
     }
 
 }

@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-//-ssasa
 @Getter
 @Setter
 @AllArgsConstructor
@@ -27,3 +26,7 @@ public class Stock {
     @Column(nullable = false)
     private int quantity;
 }
+
+
+
+

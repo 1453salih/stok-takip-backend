@@ -4,8 +4,8 @@ import com.korkmaz.stoktakipbackend.sale.dto.SaleDto;
 import com.korkmaz.stoktakipbackend.sale.mapper.SaleMapper;
 import com.korkmaz.stoktakipbackend.sale.model.Sale;
 import com.korkmaz.stoktakipbackend.sale.repository.SaleRepository;
-import com.korkmaz.stoktakipbackend.stock.model.Stock;
-import com.korkmaz.stoktakipbackend.stock.repository.StockRepository;
+import com.korkmaz.stoktakipbackend.stock.service.StockCheckService;
+import com.korkmaz.stoktakipbackend.stock.service.StockQuantityService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,34 +14,40 @@ import org.springframework.stereotype.Service;
 public class SaleServiceImpl implements SaleService {
 
     private final SaleRepository saleRepository;
-    private final StockRepository stockRepository;
     private final SaleMapper saleMapper;
+    private final StockCheckService stockCheckService;
+    private final StockQuantityService stockQuantityService;
+
+
 
     @Autowired
-    public SaleServiceImpl(SaleRepository saleRepository, StockRepository stockRepository, SaleMapper saleMapper) {
+    public SaleServiceImpl(SaleRepository saleRepository, SaleMapper saleMapper, StockCheckService stockCheckService, StockQuantityService stockQuantityService) {
         this.saleRepository = saleRepository;
-        this.stockRepository = stockRepository;
         this.saleMapper = saleMapper;
+        this.stockCheckService = stockCheckService;
+        this.stockQuantityService = stockQuantityService;
     }
 
     @Override
     @Transactional
     public SaleDto saveSale(SaleDto saleDto) {
-        Sale sale = saleMapper.toSale(saleDto);
 
-        Stock stock = stockRepository.findByProductId(sale.getProduct().getId())
-                .orElseThrow(() -> new IllegalArgumentException("Ürün stoğu bulunamadı"));
+        Long productId = saleDto.getProductId();
 
-        if (stock.getQuantity() > saleDto.getQuantity()) {
+        if(!stockCheckService.isStockRegistered(productId)){
+            throw new IllegalArgumentException("ürün stoğu bulunamadı.");
+        }
+
+        int stockQuantity = stockQuantityService.getStockQuantity(productId)
+                .orElseThrow(() -> new IllegalArgumentException("Ürün stoğu bulunamadı."));
+
+        if (stockQuantity < saleDto.getQuantity()) {
             throw new IllegalArgumentException("Yeterli stok yok");
         }
 
-        stock.setQuantity(stock.getQuantity()-saleDto.getQuantity());
-        stockRepository.save(stock);
-
-        Sale saveSale = saleRepository.save(sale);
-
-        return saleMapper.toSaleDto(saveSale);
+        Sale sale = saleMapper.toSale(saleDto);
+        Sale savedSale = saleRepository.save(sale);
+        return saleMapper.toSaleDto(savedSale);
     }
 
 }
