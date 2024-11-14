@@ -25,13 +25,13 @@ public class ProductController {
         return new ResponseEntity<>(cratedProduct, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("id/{id}")
     public ResponseEntity<ProductDto> getProduct(@PathVariable long id) {
         ProductDto productDto = getProductService.getProductById(id);
         return new ResponseEntity<>(productDto, HttpStatus.OK);
     }
 
-    @GetMapping("/{code}")
+    @GetMapping("/code/{code}")
     public ResponseEntity<ProductDto> getProductByCode(@PathVariable String code) {
         ProductDto productDto = getProductService.getProductByCode(code);
         return new ResponseEntity<>(productDto, HttpStatus.OK);
