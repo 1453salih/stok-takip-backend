@@ -1,7 +1,5 @@
 package com.korkmaz.stoktakipbackend.customer.model;
 
-
-
 import com.korkmaz.stoktakipbackend.sale.model.Sale;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

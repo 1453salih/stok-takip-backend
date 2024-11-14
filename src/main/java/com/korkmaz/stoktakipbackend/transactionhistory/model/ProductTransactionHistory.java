@@ -36,5 +36,4 @@ public class ProductTransactionHistory {
 
     @Column(name="last_sale_price", precision = 10, scale = 2)
     private BigDecimal lastSalePrice;
-
 }

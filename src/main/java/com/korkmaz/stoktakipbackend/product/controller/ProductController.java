@@ -2,26 +2,32 @@ package com.korkmaz.stoktakipbackend.product.controller;
 
 import com.korkmaz.stoktakipbackend.product.dto.ProductDto;
 import com.korkmaz.stoktakipbackend.product.service.AddProductService;
+import com.korkmaz.stoktakipbackend.product.service.GetProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 
 @RestController
 @RequestMapping("/api/product")
 public class ProductController {
     private final AddProductService addProductService;
+    private final GetProductService getProductService;
 
-    public ProductController(AddProductService addProductService) {
+    public ProductController(AddProductService addProductService, GetProductService getProductService) {
         this.addProductService = addProductService;
+        this.getProductService = getProductService;
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<ProductDto> addProduct(@RequestBody ProductDto productDto) {
         ProductDto cratedProduct = addProductService.addProduct(productDto);
         return new ResponseEntity<>(cratedProduct, HttpStatus.CREATED);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductDto> getProduct(@PathVariable long id) {
+        ProductDto productDto = getProductService.getProductById(id);
+        return new ResponseEntity<>(productDto, HttpStatus.OK);
+    }
 }
-//s
