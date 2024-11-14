@@ -10,19 +10,26 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class GetProductIdImpl implements GetProductService{
+public class GetProductImpl implements GetProductService{
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
 
-    public GetProductIdImpl(ProductRepository productRepository, ProductMapper productMapper) {
+    public GetProductImpl(ProductRepository productRepository, ProductMapper productMapper) {
         this.productRepository = productRepository;
         this.productMapper = productMapper;
     }
 
     @Override
     public ProductDto getProductById(Long id) {
-        Optional<Product> product = productRepository.findById(id);
-        return product.map(productMapper::toDto)
+        return productRepository.findById(id)
+                .map(productMapper::toDto)
                 .orElseThrow(() -> new ProductNotFoundException(id));
+    }
+
+    @Override
+    public ProductDto getProductByCode(String code) {
+        return productRepository.findByCode(code)
+                .map(productMapper::toDto)
+                .orElseThrow(() -> new ProductNotFoundException(code));
     }
 }
