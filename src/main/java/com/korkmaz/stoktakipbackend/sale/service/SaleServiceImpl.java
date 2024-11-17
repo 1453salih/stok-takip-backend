@@ -45,9 +45,9 @@ public class SaleServiceImpl implements SaleService {
             throw new IllegalArgumentException("Yeterli stok yok");
         }
 
-        Sale sale = saleMapper.toSale(saleDto);
+        Sale sale = saleMapper.toEntity(saleDto);
         Sale savedSale = saleRepository.save(sale);
-        return saleMapper.toSaleDto(savedSale);
+        return saleMapper.toDto(savedSale);
     }
 
 }

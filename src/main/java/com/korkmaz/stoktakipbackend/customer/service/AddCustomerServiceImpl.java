@@ -2,9 +2,10 @@ package com.korkmaz.stoktakipbackend.customer.service;
 
 import com.korkmaz.stoktakipbackend.customer.dto.CustomerDto;
 import com.korkmaz.stoktakipbackend.customer.mapper.CustomerMapper;
-import com.korkmaz.stoktakipbackend.customer.model.Customer;
 import com.korkmaz.stoktakipbackend.customer.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 
 @Service
 public class AddCustomerServiceImpl implements AddCustomerService {
@@ -17,10 +18,9 @@ public class AddCustomerServiceImpl implements AddCustomerService {
         this.customerMapper = customerMapper;
     }
 
+    @Transactional
+    @Override
     public CustomerDto addCustomer(CustomerDto customerDto) {
-        Customer customer = customerMapper.toEntity(customerDto);
-        Customer addCustomer = customerRepository.save(customer);
-
-        return customerMapper.toDto(addCustomer);
+        return customerMapper.toDto(customerRepository.save(customerMapper.toEntity(customerDto)));
     }
 }

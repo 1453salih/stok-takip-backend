@@ -22,11 +22,11 @@ public class SaveSaleService implements SaleService {
     }
 
     public SaleDto saveSale(SaleDto saleDto) {
-        Sale sale = saleMapper.toSale(saleDto);
+        Sale sale = saleMapper.toEntity(saleDto);
         Sale savedSale = saleRepository.save(sale);
 
         stockUpdateService.updateStock(sale.getProduct().getId(),sale.getQuantity());
 
-        return saleMapper.toSaleDto(savedSale);
+        return saleMapper.toDto(savedSale);
     }
 }

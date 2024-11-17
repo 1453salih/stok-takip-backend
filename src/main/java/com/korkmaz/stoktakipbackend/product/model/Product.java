@@ -1,7 +1,7 @@
 package com.korkmaz.stoktakipbackend.product.model;
 
 
-import com.korkmaz.stoktakipbackend.productcategories.model.ProductCategories;
+import com.korkmaz.stoktakipbackend.category.model.Category;
 import com.korkmaz.stoktakipbackend.transactionhistory.model.ProductTransactionHistory;
 import jakarta.persistence.*;
 import lombok.*;
@@ -37,7 +37,7 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name = "category_id")
-    private ProductCategories category;
+    private Category category;
 
     @OneToOne(mappedBy = "product",cascade = CascadeType.ALL)
     private ProductTransactionHistory productTransactionHistory;

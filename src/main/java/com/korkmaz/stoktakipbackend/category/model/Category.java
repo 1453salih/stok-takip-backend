@@ -1,4 +1,4 @@
-package com.korkmaz.stoktakipbackend.productcategories.model;
+package com.korkmaz.stoktakipbackend.category.model;
 
 import com.korkmaz.stoktakipbackend.product.model.Product;
 import jakarta.persistence.*;
@@ -9,7 +9,7 @@ import java.util.Set;
 @Table(name = "product_categories")
 @Data
 @Entity
-public class ProductCategories {
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

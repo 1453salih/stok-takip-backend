@@ -2,6 +2,7 @@ package com.korkmaz.stoktakipbackend.stock.service;
 
 import com.korkmaz.stoktakipbackend.stock.model.Stock;
 import com.korkmaz.stoktakipbackend.stock.repository.StockRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 @Service
 public class StockUpdateServiceImpl implements StockUpdateService {
@@ -12,6 +13,7 @@ public class StockUpdateServiceImpl implements StockUpdateService {
         this.stockRepository = stockRepository;
     }
 
+    @Transactional
     @Override
     public void updateStock(Long productId ,int quantity) {
         Stock stock =stockRepository.findByProductId(productId)
@@ -23,5 +25,4 @@ public class StockUpdateServiceImpl implements StockUpdateService {
 
         stockRepository.save(stock);
     }
-
 }

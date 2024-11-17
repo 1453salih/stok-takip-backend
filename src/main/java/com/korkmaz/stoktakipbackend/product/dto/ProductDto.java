@@ -1,6 +1,5 @@
 package com.korkmaz.stoktakipbackend.product.dto;
 
-import com.korkmaz.stoktakipbackend.productcategories.model.ProductCategories;
 import lombok.*;
 
 import java.math.BigDecimal;

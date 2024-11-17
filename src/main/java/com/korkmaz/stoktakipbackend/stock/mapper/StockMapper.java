@@ -4,7 +4,6 @@ import com.korkmaz.stoktakipbackend.stock.dto.StockDto;
 import com.korkmaz.stoktakipbackend.stock.model.Stock;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface StockMapper {
