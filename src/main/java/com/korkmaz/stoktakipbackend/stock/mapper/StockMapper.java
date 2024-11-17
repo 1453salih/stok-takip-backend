@@ -8,9 +8,9 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface StockMapper {
 
-    @Mapping(source = "product", target = "product")
+    @Mapping(source = "product.id", target = "productId")
     StockDto toDto(Stock stock);
 
-    @Mapping(source = "product", target = "product")
+    @Mapping(source = "productId", target = "product.id")
     Stock toEntity(StockDto stockDto);
 }

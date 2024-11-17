@@ -1,6 +1,5 @@
 package com.korkmaz.stoktakipbackend.stock.dto;
 
-import com.korkmaz.stoktakipbackend.product.dto.ProductDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class StockDto {
     private int id;
-    private ProductDto product;
+    private Long productId;
     private int quantity;
 }
 

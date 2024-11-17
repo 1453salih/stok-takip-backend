@@ -20,7 +20,6 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column()
     private String companyName;
 
     @Column(unique = true)
